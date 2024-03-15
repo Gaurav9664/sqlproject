@@ -6,10 +6,10 @@ const insertCustomer = (data) => {
         let sqlQuery = 'INSERT INTO customer (CNAME, CITY, RATING, SNUM) VALUES (?, ?, ?, ?)'
         const res = poolPromise.execute(sqlQuery, [data.cname, data.city, data.rating, data.snum])
 
-        console.log(res);
+        return res
 
     } catch (error) {
-     console.log(error.message);   
+        throw error.message   
     }
 }
 
@@ -18,10 +18,10 @@ const selectCustomer = async () => {
         let sqlQuery = 'SELECT * FROM customer'
         const res = await poolPromise.execute(sqlQuery)
 
-        console.log(res);
+        return res
 
     } catch (error) {
-        console.log(error.message);
+        throw error.message
     }
 }
 
@@ -30,10 +30,10 @@ const deletCustomer = async (id) => {
         let sqlQuery = `DELETE FROM customer WHERE cnum=${id}`
         const res = await poolPromise.execute(sqlQuery)
 
-        console.log(res);
+        return res
 
     } catch (error) {
-        console.log(error.message);
+        throw error.message
     }
 }
 
@@ -42,10 +42,10 @@ const updateCustomer = async (id, data) => {
         let sqlQuery = `UPDATE customer SET cname='?', city='?', rating='?', snum='?' WHERE cnum=${id}`
         const res = await poolPromise.execute(sqlQuery, [data.cname, data.city, data.rating, data.snum])
 
-        console.log(res);
+        return res
 
     } catch (error) {
-        console.log(error.message);
+        throw error.message
     }
 }
 

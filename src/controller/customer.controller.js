@@ -4,21 +4,39 @@ const { Customer } = require("../model");
 const createCustomer = async (req, res) => {
     try {
         console.log(req.body);
-        const res = Customer.insertCustomer(req.body);
-        
+        const result = Customer.insertCustomer(req.body);
+
+        res.status(200).json({
+            success: true,
+            message: "Customer inserted successfully",
+            data: result
+        })
+
     } catch (error) {
-        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            message: `Internal server error: Insert Customer, ${error.message}`,
+            data: []
+        })
     }
 }
 
 const getCustomer = async (req, res) => {
     try {
-        const data = await Customer.selectCustomer()
+        const result = await Customer.selectCustomer()
 
-        console.log(data);
-        
+        res.status(200).json({
+            success: true,
+            message: "Customer Get Data successfully",
+            data: result
+        })
+
     } catch (error) {
-        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            message: `Internal server error: Get Data Customer, ${error.message}`,
+            data: []
+        })
     }
 }
 
@@ -26,11 +44,20 @@ const deletCustomer = async (req, res) => {
     try {
         let id = +req.params.id
 
-        const data = await Customer.deletCustomer(id)
+        const result = await Customer.deletCustomer(id)
 
-        console.log(id, data);
+        res.status(200).json({
+            success: true,
+            message: "Customer Delete successfully",
+            data: result
+        })
+
     } catch (error) {
-        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            message: `Internal server error: Delete Customer, ${error.message}`,
+            data: []
+        })
     }
 }
 
@@ -41,9 +68,18 @@ const updateCustomer = async (req, res) => {
 
         const customer = await Customer.updateCustomer(id, data)
 
-        console.log(id, data);
+        res.status(200).json({
+            success: true,
+            message: "Customer Update successfully",
+            data: customer
+        })
+
     } catch (error) {
-        console.log(error.message);
+        res.status(500).json({
+            success: false,
+            message: `Internal server error: Update Customer, ${error.message}`,
+            data: []
+        })
     }
 }
 

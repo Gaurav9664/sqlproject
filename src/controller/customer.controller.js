@@ -4,12 +4,14 @@ const { Customer } = require("../model");
 const createCustomer = async (req, res) => {
     try {
         console.log(req.body);
-        const result = Customer.insertCustomer(req.body);
+        const result = await Customer.insertCustomer(req.body);
+
+        console.log(Customer);
 
         res.status(200).json({
             success: true,
             message: "Customer inserted successfully",
-            data: result
+            data: { ...req.body, CNUM: result.insertId, IsActive: true }
         })
 
     } catch (error) {

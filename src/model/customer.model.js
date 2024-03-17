@@ -41,7 +41,7 @@ const deletCustomer = async (id) => {
 const updateCustomer = async (id, data) => {
     try {
         let sqlQuery = `UPDATE customer SET cname=?, city=?, rating=?, snum=? WHERE cnum=${id}`
-        const [rows] = await poolPromise.execute(sqlQuery, [data.cname, data.city, data.rating, data.snum])
+        const [rows] = await poolPromise.execute(sqlQuery, [data.CNAME, data.CITY, data.RATING, data.SNUM])
 
         // console.log(rows);
 

@@ -5,13 +5,14 @@ const createCustomer = async (req, res) => {
     try {
         console.log(req.body);
         const result = await Customer.insertCustomer(req.body);
+        const getresult = await Customer.selectCustomer()
 
         console.log(Customer);
 
         res.status(200).json({
             success: true,
             message: "Customer inserted successfully",
-            data: { ...req.body, CNUM: result.insertId, IsActive: true }
+            data: getresult
         })
 
     } catch (error) {
@@ -47,11 +48,12 @@ const deletCustomer = async (req, res) => {
         let id = +req.params.id
 
         const result = await Customer.deletCustomer(id)
+        const getresult = await Customer.selectCustomer()
 
         res.status(200).json({
             success: true,
             message: "Customer Delete successfully",
-            data: result
+            data: getresult
         })
 
     } catch (error) {
@@ -68,12 +70,17 @@ const updateCustomer = async (req, res) => {
         let id = +req.params.id
         let data = req.body
 
+        console.log(id, data);
+
         const customer = await Customer.updateCustomer(id, data)
+        const getresult = await Customer.selectCustomer()
+
+        console.log(customer);
 
         res.status(200).json({
             success: true,
             message: "Customer Update successfully",
-            data: customer
+            data: getresult
         })
 
     } catch (error) {
